@@ -44,7 +44,7 @@ export const useMyCartStore = defineStore({
 
     incrementItem(productId: number) {
       const existingProduct = this.listCart.find(
-        (item) => item.id === productId
+        (item) => item.productDetail.id === productId
       );
 
       if (existingProduct) {
@@ -56,7 +56,7 @@ export const useMyCartStore = defineStore({
 
     decrementItem(productId: number) {
       const existingProduct = this.listCart.find(
-        (item) => item.id === productId
+        (item) => item.productDetail.id === productId
       );
 
       if (existingProduct) {
@@ -72,6 +72,16 @@ export const useMyCartStore = defineStore({
 
     saveCartToLocalStorage() {
       localStorage.setItem("listCart", JSON.stringify(this.listCart));
+    },
+
+    updateProductQty(productId: number, qty: number) {
+      const productInCart = this.listCart.find(
+        (item) => item.productDetail.id === productId
+      );
+      if (productInCart) {
+        productInCart.qty = qty;
+      }
+      this.saveCartToLocalStorage();
     },
 
     loadCartFromLocalStorage() {

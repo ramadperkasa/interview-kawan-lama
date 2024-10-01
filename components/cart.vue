@@ -5,7 +5,7 @@
     >
       <img
         class="object-cover w-40 w-full h-40 rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-        :src="props.productDetail.images[0]"
+        :src="props.productDetail.thumbnail"
         alt=""
       />
       <div class="flex flex-col justify-between p-4 leading-normal">

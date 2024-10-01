@@ -4,7 +4,7 @@
 
     <div class="bg-gray-50">
       <div
-        class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto"
+        class="flex flex-wrap justify-center w-full max-w-screen-xl p-4 mx-auto"
       >
         <slot />
       </div>
