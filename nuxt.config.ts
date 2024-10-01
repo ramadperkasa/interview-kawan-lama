@@ -13,4 +13,9 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ["./stores/**"],
   },
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.API_BASE_URL || "https://dummyjson.com",
+    },
+  },
 });

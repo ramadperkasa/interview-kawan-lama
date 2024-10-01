@@ -1,12 +1,11 @@
 <template>
   <div>
-    {{ props.title }}
     <div
-      class="w-100 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+      class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow w-100 md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
     >
       <img
-        class="w-40 h-40 object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-        :src="props.productDetail.image"
+        class="object-cover w-40 w-full h-40 rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+        :src="props.productDetail.images[0]"
         alt=""
       />
       <div class="flex flex-col justify-between p-4 leading-normal">
@@ -40,14 +39,15 @@
 </template>
 
 <script lang="ts" setup>
+import type { Product } from "~/types/products";
 import { useMyCartStore } from "../stores/cart";
 
 const cart = useMyCartStore();
 
 const props = defineProps<{
-  id: string;
+  id: number;
   qty: number;
-  productDetail: Object;
+  productDetail: Product;
 }>();
 </script>
 

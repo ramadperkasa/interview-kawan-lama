@@ -1,15 +1,7 @@
 <template>
   <div>
-    <div class="grid grid-cols-4 gap-4">
-      <Card
-        v-for="(item, index) in productList"
-        :key="index"
-        :id="item.id"
-        :title="item.title"
-        :price="item.price"
-        :description="item.description"
-        :image="item.images[0]"
-      />
+    <div class="grid grid-cols-5 gap-4">
+      <Card v-for="(item, index) in productList" :key="index" :product="item" />
     </div>
   </div>
 </template>
@@ -17,16 +9,25 @@
 <script setup lang="ts">
 import { useMyCartStore } from "../stores/cart";
 
+import type { Product } from "@/types/products";
+
 const cart = useMyCartStore();
 
-const productList = ref([]);
+const productList = ref<Product[]>([]);
 
-const onLoadData = () => {
-  fetch("https://dummyjson.com/products")
-    .then((response) => response.json())
-    .then((data) => {
-      productList.value = data.products;
-    });
+interface FetchProductsResponse {
+  products: Product[];
+}
+
+const onLoadData = async () => {
+  const { data, error } = await useAPI<FetchProductsResponse>("/products");
+
+  if (error.value) {
+    console.error("Error fetching products:", error.value);
+    return;
+  }
+
+  productList.value = data.value?.products ?? [];
 };
 
 onLoadData();
@@ -35,5 +36,3 @@ onMounted(() => {
   cart.loadCartFromLocalStorage();
 });
 </script>
-
-<style scoped></style>

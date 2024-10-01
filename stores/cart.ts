@@ -1,12 +1,18 @@
 import { defineStore } from "pinia";
+import type { Product } from "~/types/products";
+interface CartItem {
+  id: number;
+  qty: number;
+  productDetail: Product;
+}
 
 export const useMyCartStore = defineStore({
   id: "myCartStore",
   state: () => ({
-    listCart: [],
+    listCart: [] as CartItem[],
   }),
   actions: {
-    addProductToCart(product: any) {
+    addProductToCart(product: Product) {
       const existingProduct = this.listCart.find(
         (item) => item.productDetail.id === product.id
       );
@@ -21,10 +27,10 @@ export const useMyCartStore = defineStore({
         });
       }
 
-      this.saveCartToLocalStorage(); // Save to local storage
+      this.saveCartToLocalStorage();
     },
 
-    removeProductFromCart(productId: any) {
+    removeProductFromCart(productId: number) {
       const existingProductIndex = this.listCart.findIndex(
         (item) => item.productDetail.id === productId
       );
@@ -33,10 +39,10 @@ export const useMyCartStore = defineStore({
         this.listCart.splice(existingProductIndex, 1);
       }
 
-      this.saveCartToLocalStorage(); // Save to local storage
+      this.saveCartToLocalStorage();
     },
 
-    incrementItem(productId: any) {
+    incrementItem(productId: number) {
       const existingProduct = this.listCart.find(
         (item) => item.id === productId
       );
@@ -45,10 +51,10 @@ export const useMyCartStore = defineStore({
         existingProduct.qty += 1;
       }
 
-      this.saveCartToLocalStorage(); // Save to local storage
+      this.saveCartToLocalStorage();
     },
 
-    decrementItem(productId: any) {
+    decrementItem(productId: number) {
       const existingProduct = this.listCart.find(
         (item) => item.id === productId
       );
@@ -61,7 +67,7 @@ export const useMyCartStore = defineStore({
         }
       }
 
-      this.saveCartToLocalStorage(); // Save to local storage
+      this.saveCartToLocalStorage();
     },
 
     saveCartToLocalStorage() {
@@ -70,7 +76,6 @@ export const useMyCartStore = defineStore({
 
     loadCartFromLocalStorage() {
       if (typeof window !== "undefined") {
-        // Check if we're in the browser
         const storedCart = localStorage.getItem("listCart");
         if (storedCart) {
           this.listCart = JSON.parse(storedCart);

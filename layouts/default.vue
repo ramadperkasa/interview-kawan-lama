@@ -2,10 +2,12 @@
   <div>
     <LayoutsHeader />
 
-    <div
-      class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-    >
-      <slot />
+    <div class="bg-gray-50">
+      <div
+        class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto"
+      >
+        <slot />
+      </div>
     </div>
   </div>
 </template>
